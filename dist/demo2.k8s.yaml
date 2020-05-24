@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo2-app1-service-1624c552
+spec:
+  ports:
+    - port: 80
+      targetPort: 8000
+  selector:
+    app: demo2app11F0F66E3
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo2-app1-deployment-e1eddc98
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo2app11F0F66E3
+  template:
+    metadata:
+      labels:
+        app: demo2app11F0F66E3
+    spec:
+      containers:
+        - image: arunvel1988/c1
+          name: app
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo2-app2-service-d76cf0a2
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: demo2app292D86DD8
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo2-app2-deployment-486de719
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo2app292D86DD8
+  template:
+    metadata:
+      labels:
+        app: demo2app292D86DD8
+    spec:
+      containers:
+        - image: nginx
+          name: app
+          ports:
+            - containerPort: 80
